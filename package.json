@@ -1,5 +1,20 @@
 {
   "dependencies": {
-    "@openzeppelin/contracts": "^4.4.0"
+    "@openzeppelin/contracts": "^4.4.0",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^10.0.0",
+    "truffle-plugin-verify": "^0.5.19"
+  },
+  
+  "name": "kata-nft-contract",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/phantom0109/kata-nft-contract",
+  "author": "phantom0109 <p.phantom0109@gmail.com>",
+  "license": "MIT" ,
+  "scripts": {
+    "deploy:kovan": "truffle migrate --network kovan --reset",
+    "verify:kovan": "truffle run verify KataNFT --network kovan"
   }
 }
+

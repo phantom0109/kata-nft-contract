@@ -1,5 +1,5 @@
-const Migrations = artifacts.require("Migrations");
+const KataNFT = artifacts.require("KataNFT");
 
-module.exports = function (deployer) {
-  deployer.deploy(Migrations);
+module.exports = async function (deployer) {
+  await deployer.deploy(KataNFT);
 };
