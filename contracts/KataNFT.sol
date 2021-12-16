@@ -14,7 +14,7 @@ contract KataNFT is ERC721, ERC721Enumerable, Pausable, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    string baseURI;
+    string baseURI = "ipfs://QmaMepHm4YAvuuy6iGP2BwPWRvjzeedtKCgGgbu6MXW7Rq/";
     string baseExt = ".json";
 
     uint256 public maxSupply = 10000;
@@ -24,7 +24,7 @@ contract KataNFT is ERC721, ERC721Enumerable, Pausable, Ownable {
     mapping (address => bool) whitelist;
     uint256 public whitelistTime;
 
-    constructor(uint256 _whitelistTime) ERC721("Katana Inu NFT", "KataNFT") {
+    constructor(uint256 _whitelistTime) ERC721("Katana Inu Takeru", "KATA") {
         whitelistTime = _whitelistTime;
         _tokenIdCounter.increment();
     }
