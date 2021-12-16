@@ -20,9 +20,14 @@ contract KataNFT is ERC721, ERC721Enumerable, Pausable, Ownable {
     uint256 public maxSupply = 10000;
     uint256 public price = 0.04 ether;
     uint256 public maxMintAmount = 20;
-    uint256 public mintSupply;
 
-    constructor() ERC721("Katana Inu NFT", "KataNFT") {}
+    mapping (address => bool) whitelist;
+    uint256 public whitelistTime;
+
+    constructor(uint256 _whitelistTime) ERC721("Katana Inu NFT", "KataNFT") {
+        whitelistTime = _whitelistTime;
+        _tokenIdCounter.increment();
+    }
 
     function pause() public onlyOwner {
         _pause();
@@ -32,16 +37,16 @@ contract KataNFT is ERC721, ERC721Enumerable, Pausable, Ownable {
         _unpause();
     }
 
-    function mint(uint256 Amount) external payable whenNotPaused {
-        require(Amount >= 0, "KataNFT: token amount is zero");
-        require(balanceOf(msg.sender) + Amount <= maxMintAmount, "KataNFT: exceeds max mint limit");
-        require(price * Amount == msg.value, "KataNFT: invalid eth amount");
-        require(mintSupply + Amount < maxSupply, "KataNFT: excceds max mint supply");
+    function mint(uint256 amount) external payable whenNotPaused {
+        require(amount >= 0, "KataNFT: token amount is zero");
+        require(balanceOf(msg.sender) + amount <= maxMintAmount, "KataNFT: exceeds max mint limit");
+        require(price * amount == msg.value, "KataNFT: Invalid eth amount");
+        require(totalSupply() + amount <= maxSupply, "KataNFT: excceds max mint supply");
+        if (block.timestamp < whitelistTime) {
+            require(whitelist[msg.sender], "KataNFT: This account is not whitelisted");
+        }
 
-        mintSupply = mintSupply + Amount;
-
-
-        for (uint256 i = 0; i < Amount; i++) {
+        for (uint256 i = 0; i < amount; i++) {
             safeMint(msg.sender);
         }
     }
@@ -84,7 +89,7 @@ contract KataNFT is ERC721, ERC721Enumerable, Pausable, Ownable {
         return super.supportsInterface(interfaceId);
     }
 
-    function setMaxsupply(uint256 _maxSupply) external onlyOwner {
+    function setMaxSupply(uint256 _maxSupply) external onlyOwner {
         maxSupply = _maxSupply;
     }
 
@@ -102,5 +107,14 @@ contract KataNFT is ERC721, ERC721Enumerable, Pausable, Ownable {
 
     function setBaseExt(string memory _baseExt) external onlyOwner {
         baseExt = _baseExt;
+    }
+
+    function registerWhitelist(address[] memory addrs) external onlyOwner {
+        for(uint256 i = 0; i < addrs.length; i++)
+            whitelist[addrs[i]] = true;
+    }
+
+    function setWhitelistTime(uint256 _whitelistTime) external onlyOwner {
+        whitelistTime = _whitelistTime;
     }
 }

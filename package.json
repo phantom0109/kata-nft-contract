@@ -9,12 +9,12 @@
   "name": "kata-nft-contract",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/phantom0109/kata-nft-contract",
-  "author": "phantom0109 <p.phantom0109@gmail.com>",
+  "repository": "",
+  "author": "",
   "license": "MIT" ,
   "scripts": {
-    "deploy:kovan": "truffle migrate --network kovan --reset",
-    "verify:kovan": "truffle run verify KataNFT --network kovan"
+    "deploy:rinkeby": "truffle migrate --network rinkeby --reset",
+    "verify:rinkeby": "truffle run verify KataNFT --network rinkeby"
   }
 }
 
