@@ -14,7 +14,9 @@
   "license": "MIT" ,
   "scripts": {
     "deploy:rinkeby": "truffle migrate --network rinkeby --reset",
-    "verify:rinkeby": "truffle run verify KataNFT --network rinkeby"
+    "verify:rinkeby": "truffle run verify KataNFT --network rinkeby",
+    "deploy:mainnet": "truffle migrate --network mainnet --reset",
+    "verify:mainnet": "truffle run verify KataNFT --network mainnet"
   }
 }
 

@@ -72,6 +72,14 @@ module.exports = {
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
+    mainnet: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://mainnet.infura.io/v3/453c03db4e284d4abbf11bf220b53bfe`),
+      network_id: 1,       // Mainnet's id
+      networkCheckTimeout: 10000000,
+      confirmations: 0,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 2000,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },
     kovan: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://kovan.infura.io/v3/453c03db4e284d4abbf11bf220b53bfe`),
       network_id: 42,       // Kovan's id
